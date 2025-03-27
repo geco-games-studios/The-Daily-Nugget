@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Results - Morning Brew</title>
+  <title>Games - Morning Brew</title>
   <style>
     /* Reset and base styles */
     * {
@@ -92,69 +92,55 @@
       margin-left: 1.5rem;
     }
 
-    /* Search form styles */
-    .search-form-container {
+    /* Games page styles */
+    .games-header {
+      padding: 2rem 0;
+    }
+
+    .games-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .games-description {
+      font-size: 1.125rem;
+      color: #333;
+      max-width: 800px;
+    }
+
+    /* Game list styles */
+    .games-list {
+      padding: 1rem 0 3rem;
+    }
+
+    .game-card {
+      display: flex;
       padding: 1.5rem 0;
       border-bottom: 1px solid #e5e5e5;
     }
 
-    .search-form {
-      display: flex;
-      max-width: 100%;
-    }
-
-    .search-input {
-      flex: 1;
-      padding: 0.75rem;
-      border: 1px solid #e5e5e5;
-      border-right: none;
-      font-size: 1rem;
-    }
-
-    .search-button {
-      padding: 0.75rem 1.5rem;
-      background-color: #333;
-      color: white;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .search-button:hover {
-      background-color: #000;
-    }
-
-    /* Article grid styles */
-    .articles-grid {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 2rem;
-      padding: 2rem 0;
-    }
-
-    .article-card {
-      display: flex;
-      flex-direction: column;
-      border-bottom: 1px solid #e5e5e5;
-      padding-bottom: 2rem;
-    }
-
-    .article-image {
-      position: relative;
-      aspect-ratio: 16/9;
+    .game-image {
+      width: 120px;
+      height: 120px;
       background-color: #f2f2f2;
       border-radius: 4px;
       overflow: hidden;
-      margin-bottom: 1rem;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
     }
 
-    .article-image img {
+    .game-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .article-category {
+    .game-content {
+      flex: 1;
+    }
+
+    .game-category {
       color: #0062ff;
       font-size: 0.75rem;
       font-weight: 700;
@@ -162,21 +148,137 @@
       text-transform: uppercase;
     }
 
-    .article-title {
+    .game-title {
       font-size: 1.25rem;
       font-weight: 700;
       color: #333;
       margin-bottom: 0.5rem;
     }
 
-    .article-card:hover .article-title {
-      color: #0062ff;
+    .game-description {
+      font-size: 0.875rem;
+      color: #333;
+      margin-bottom: 0.5rem;
     }
 
-    .article-author {
+    .game-meta {
+      display: flex;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 0.25rem;
+    }
+
+    .game-meta span {
+      margin-right: 1rem;
+      text-transform: uppercase;
+    }
+
+    .game-meta span:last-child {
+      margin-right: 0;
+    }
+
+    .game-author {
       font-size: 0.75rem;
       color: #666;
       text-transform: uppercase;
+    }
+
+    .load-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .load-more-btn {
+      background-color: #333;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .load-more-btn:hover {
+      background-color: #000;
+    }
+
+    /* Newsletter section */
+    .newsletter {
+      background-color: #0062ff;
+      color: white;
+      padding: 3rem 0;
+    }
+
+    .newsletter-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .newsletter-content {
+      margin-bottom: 2rem;
+    }
+
+    .newsletter-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter-text {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+
+    .newsletter-form {
+      max-width: 400px;
+    }
+
+    .newsletter-form input {
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .newsletter-form button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .newsletter-form button:hover {
+      background-color: #333;
+    }
+
+    .newsletter-testimonial {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      color: #333;
+      max-width: 500px;
+      margin-left: auto;
+    }
+
+    .testimonial-text {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-author {
+      font-size: 0.75rem;
+      font-style: italic;
+      text-align: right;
     }
 
     /* Footer styles */
@@ -285,17 +387,22 @@
 
     /* Media Queries */
     @media (min-width: 768px) {
-      .articles-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .newsletter-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .newsletter-content {
+        width: 50%;
+        margin-bottom: 0;
+      }
+
+      .newsletter-testimonial {
+        width: 40%;
       }
 
       .footer-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .articles-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
@@ -311,8 +418,8 @@
         </a>
       </div>
       <nav class="nav-menu">
-        <a href="#">News</a>
-        <a href="#">Games</a>
+        <a href="./search.html">News</a>
+        <a href="./game.html">Games</a>
         <a href="#">Podcast</a>
         <a href="#">Video</a>
         <a href="#">Events</a>
@@ -328,142 +435,152 @@
     </div>
   </header>
 
-  <!-- Search Form -->
-  <div class="search-form-container">
+  <!-- Games Header -->
+  <section class="games-header">
     <div class="container">
-      <form class="search-form">
-        <input type="text" class="search-input" placeholder="Search for stories" value="">
-        <button type="submit" class="search-button">Search</button>
-      </form>
+      <h1 class="games-title">Daily Nugget Games</h1>
+      <p class="games-description">
+        Enjoy engaging with politics through interactive challenges? Play one of Daily Nugget Zambia's many games, including Political Trivia, Policy Puzzle, Governance Word Search, Election Jigsaw, and Leadership Turntable.
+      </p>
     </div>
-  </div>
+  </section>
 
-  <!-- Search Results -->
-  <main>
+  <!-- Games List -->
+  <section class="games-list">
     <div class="container">
-      <div class="articles-grid">
-        <!-- Article 1 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Word Search: Four-sided shapes">
+      <!-- Game 1 -->
+      <div class="game-card">
+        <div class="game-image">
+          <img src="https://via.placeholder.com/120x120/f8f8f8/333333?text=JIGSAW" alt="Jigsaw: Cherry blossom">
+        </div>
+        <div class="game-content">
+          <div class="game-category">JIGSAW</div>
+          <h3 class="game-title">Jigsaw: Cherry blossom</h3>
+          <p class="game-description">Can you complete this jigsaw puzzle?</p>
+          <div class="game-meta">
+            <span>Neal Freyman</span>
+            <span>About 3 minutes</span>
+            <span>Easy</span>
           </div>
-          <div class="article-category">GAMES</div>
-          <h3 class="article-title">Word Search: Four-sided shapes</h3>
-          <div class="article-author">MORNING BREW</div>
-        </article>
+          <div class="game-author">FROM THE CREW</div>
+        </div>
+      </div>
 
-        <!-- Article 2 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Trump-backed crypto project announces stablecoin">
+      <!-- Game 2 -->
+      <div class="game-card">
+        <div class="game-image">
+          <img src="https://via.placeholder.com/120x120/f8f8f8/333333?text=QUIZ" alt="Friday News Quiz: March 28">
+        </div>
+        <div class="game-content">
+          <div class="game-category">QUIZ</div>
+          <h3 class="game-title">Friday News Quiz: March 28</h3>
+          <p class="game-description">How closely did you read the Brew this week?</p>
+          <div class="game-meta">
+            <span>Neal Freyman</span>
+            <span>About 5 minutes</span>
+            <span>Medium</span>
           </div>
-          <div class="article-category">CRYPTOCURRENCIES</div>
-          <h3 class="article-title">Trump-backed crypto project announces stablecoin</h3>
-          <div class="article-author">MATTY MERRITT</div>
-        </article>
+          <div class="game-author">FROM THE CREW</div>
+        </div>
+      </div>
 
-        <!-- Article 3 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Napster acquired by metaverse company">
+      <!-- Game 3 -->
+      <div class="game-card">
+        <div class="game-image">
+          <img src="https://via.placeholder.com/120x120/f8f8f8/333333?text=MINI" alt="Brew Mini: Six pack">
+        </div>
+        <div class="game-content">
+          <div class="game-category">BREW MINI</div>
+          <h3 class="game-title">Brew Mini: Six pack</h3>
+          <p class="game-description">How fast can you complete this Mini?</p>
+          <div class="game-meta">
+            <span>Neal Freyman</span>
+            <span>About 2 minutes</span>
+            <span>Easy</span>
           </div>
-          <div class="article-category">METAVERSE</div>
-          <h3 class="article-title">Napster acquired by metaverse company</h3>
-          <div class="article-author">MOLLY LIEBERGALL</div>
-        </article>
+          <div class="game-author">FROM THE CREW</div>
+        </div>
+      </div>
 
-        <!-- Article 4 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Create the home entertainment setup of your dreams">
+      <!-- Game 4 -->
+      <div class="game-card">
+        <div class="game-image">
+          <img src="https://via.placeholder.com/120x120/f8f8f8/333333?text=WORD+SEARCH" alt="Word Search: Four-sided shapes">
+        </div>
+        <div class="game-content">
+          <div class="game-category">WORD SEARCH</div>
+          <h3 class="game-title">Word Search: Four-sided shapes</h3>
+          <p class="game-description">Can you identify these shapes?</p>
+          <div class="game-meta">
+            <span>Morning Brew</span>
+            <span>Mar 26, 2023</span>
           </div>
-          <div class="article-category">LIFESTYLE</div>
-          <h3 class="article-title">Create the home entertainment setup of your dreams</h3>
-          <div class="article-author">MORNING BREW CREATIVE STUDIO</div>
-        </article>
+          <div class="game-author">FROM THE CREW</div>
+        </div>
+      </div>
 
-        <!-- Article 5 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Foreign tourists are snubbing the US">
+      <!-- Game 5 -->
+      <div class="game-card">
+        <div class="game-image">
+          <img src="https://via.placeholder.com/120x120/f8f8f8/333333?text=MINI" alt="Brew Mini: 9999...">
+        </div>
+        <div class="game-content">
+          <div class="game-category">BREW MINI</div>
+          <h3 class="game-title">Brew Mini: 9999...</h3>
+          <p class="game-description">How fast can you complete this Mini?</p>
+          <div class="game-meta">
+            <span>Neal Freyman</span>
+            <span>Mar 24, 2023</span>
           </div>
-          <div class="article-category">INTERNATIONAL</div>
-          <h3 class="article-title">Foreign tourists are snubbing the US</h3>
-          <div class="article-author">SAM KLEBANOV</div>
-        </article>
+          <div class="game-author">FROM THE CREW</div>
+        </div>
+      </div>
 
-        <!-- Article 6 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="US-Mexico border agents are seizing a lot of eggs">
+      <!-- Game 6 -->
+      <div class="game-card">
+        <div class="game-image">
+          <img src="https://via.placeholder.com/120x120/f8f8f8/333333?text=TURNTABLE" alt="Turntable: March 24">
+        </div>
+        <div class="game-content">
+          <div class="game-category">TURNTABLE</div>
+          <h3 class="game-title">Turntable: March 24</h3>
+          <p class="game-description">Test your music knowledge with our weekly playlist game</p>
+          <div class="game-meta">
+            <span>Morning Brew</span>
+            <span>Mar 24, 2023</span>
           </div>
-          <div class="article-category">FOOD & BEV</div>
-          <h3 class="article-title">US-Mexico border agents are seizing a lot of eggs</h3>
-          <div class="article-author">MATTY MERRITT</div>
-        </article>
+          <div class="game-author">FROM THE CREW</div>
+        </div>
+      </div>
 
-        <!-- Article 7 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Make your life easier with these 7 items">
-          </div>
-          <div class="article-category">LIFESTYLE</div>
-          <h3 class="article-title">Make your life easier with these 7 items</h3>
-          <div class="article-author">JULIA LOPEZ</div>
-        </article>
-
-        <!-- Article 8 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="23andMe is for sale, and maybe our DNA data, too">
-          </div>
-          <div class="article-category">HEALTH TECH</div>
-          <h3 class="article-title">23andMe is for sale, and maybe our DNA data, too</h3>
-          <div class="article-author">MOLLY LIEBERGALL</div>
-        </article>
-
-        <!-- Article 9 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Hardship comes to Sesame Street">
-          </div>
-          <div class="article-category">ENTERTAINMENT</div>
-          <h3 class="article-title">Hardship comes to Sesame Street</h3>
-          <div class="article-author">SAM KLEBANOV</div>
-        </article>
-
-        <!-- Article 10 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Brew Mini: 9999...">
-          </div>
-          <div class="article-category">GAMES</div>
-          <h3 class="article-title">Brew Mini: 9999...</h3>
-          <div class="article-author">NEAL FREYMAN</div>
-        </article>
-
-        <!-- Article 11 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="Snow White and the 43-million-dollar box office">
-          </div>
-          <div class="article-category">MEDIA</div>
-          <h3 class="article-title">Snow White and the 43-million-dollar box office</h3>
-          <div class="article-author">JORDAN LEMER</div>
-        </article>
-
-        <!-- Article 12 -->
-        <article class="article-card">
-          <div class="article-image">
-            <img src="https://via.placeholder.com/600x400" alt="What to make of all these 'recession indicators'">
-          </div>
-          <div class="article-category">ECONOMY</div>
-          <h3 class="article-title">What to make of all these 'recession indicators'</h3>
-          <div class="article-author">MOLLY LIEBERGALL</div>
-        </article>
+      <!-- Load More Button -->
+      <div class="load-more">
+        <button class="load-more-btn">More Games</button>
       </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter">
+    <div class="container newsletter-container">
+      <div class="newsletter-content">
+        <h2 class="newsletter-title">Become smarter in just 5 minutes</h2>
+        <p class="newsletter-text">
+          Morning Brew delivers quick and insightful updates about the business world every day of the week from Wall St. to Silicon Valley.
+        </p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Email" required>
+          <button type="submit">Subscribe</button>
+        </div>
+      </div>
+      <div class="newsletter-testimonial">
+        <p class="testimonial-text">
+          Good morning! I was just scrolling to see if the show is updated on Spotify. Yes, it is! I just wanted to say that I've been listening to your podcast for a while now and I absolutely love it. I'm a huge fan of Morning Brew and I think you guys are doing a fantastic job. Every morning I'm delighted to see a notification from you guys. Thank you for making my day a little better.
+        </p>
+        <p class="testimonial-author">—Chad Lott, Neal Freyman</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
@@ -520,9 +637,9 @@
       
       <div class="footer-grid">
         <div class="footer-column">
-          <h3>MORNING BREW INC.</h3>
+          <h3>DAILY NUGGET INC.</h3>
           <ul class="footer-links">
-            <li><a href="#">About Morning Brew</a></li>
+            <li><a href="#">About Daily Nugget</a></li>
             <li><a href="#">Advertise with us</a></li>
             <li><a href="#">Shop</a></li>
             <li><a href="#">Careers</a></li>
@@ -530,7 +647,7 @@
           </ul>
         </div>
         <div class="footer-column">
-          <h3>MORNING BREW</h3>
+          <h3>DAILY NUGGET</h3>
           <div class="partner-logos">
             <img src="https://via.placeholder.com/120x40/ffffff/333333?text=BREW+MARKETS" alt="Brew Markets" class="partner-logo">
             <img src="https://via.placeholder.com/120x40/ffffff/333333?text=PLAYBOOK" alt="Playbook" class="partner-logo">
@@ -545,7 +662,7 @@
           </div>
         </div>
         <div class="footer-column">
-          <h3>© 2023 MORNING BREW, INC.</h3>
+          <h3>© 2023 DAILY NUGGET, INC.</h3>
           <p class="footer-text">
             All Rights Reserved.
           </p>
