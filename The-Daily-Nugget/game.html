@@ -406,6 +406,286 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+
+
+
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header styles */
+    header {
+      background-color: white;
+      border-bottom: 1px solid #e5e5e5;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    /* Desktop Navigation - Hidden on mobile */
+    .desktop-nav {
+      display: none;
+    }
+
+    /* Mobile Navigation Button - Now on the right */
+    .mobile-nav-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 200;
+      order: 3; /* Move to the end of flex container */
+    }
+
+    .hamburger {
+      position: relative;
+      width: 24px;
+      height: 2px;
+      background-color: #333;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background-color: #333;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger::before {
+      transform: translateY(-8px);
+    }
+
+    .hamburger::after {
+      transform: translateY(8px);
+    }
+
+    /* Hamburger Animation */
+    .mobile-nav-toggle.active .hamburger {
+      background-color: transparent;
+    }
+
+    .mobile-nav-toggle.active .hamburger::before {
+      transform: rotate(45deg);
+    }
+
+    .mobile-nav-toggle.active .hamburger::after {
+      transform: rotate(-45deg);
+    }
+
+    /* Mobile Navigation Menu - Now on the right */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: 0; /* Changed from left to right */
+      width: 80%;
+      max-width: 300px;
+      height: 100%;
+      background-color: white;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); /* Shadow on the left side */
+      z-index: 150;
+      transform: translateX(100%); /* Changed to slide from right */
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+
+    .mobile-nav.active {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .mobile-nav-logo {
+      height: 32px;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      padding: 1rem 0;
+    }
+
+    .mobile-nav-item {
+      border-bottom: 1px solid #f2f2f2;
+    }
+
+    .mobile-nav-link {
+      display: block;
+      padding: 1rem;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+    }
+
+    .mobile-nav-link:hover {
+      background-color: #f9f9f9;
+      color: #0062ff;
+    }
+
+    /* Submenu styles */
+    .mobile-nav-submenu {
+      display: none;
+      list-style: none;
+      background-color: #f9f9f9;
+    }
+
+    .mobile-nav-submenu.active {
+      display: block;
+    }
+
+    .mobile-nav-submenu-link {
+      display: block;
+      padding: 0.75rem 1rem 0.75rem 2rem;
+      font-weight: 400;
+      transition: background-color 0.2s ease;
+    }
+
+    .mobile-nav-submenu-link:hover {
+      background-color: #f2f2f2;
+      color: #0062ff;
+    }
+
+    .mobile-nav-item-has-children > .mobile-nav-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-nav-item-has-children > .mobile-nav-link::after {
+      content: '+';
+      font-size: 1.25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .mobile-nav-item-has-children.active > .mobile-nav-link::after {
+      transform: rotate(45deg);
+    }
+
+    /* Overlay */
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 140;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .mobile-nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Search icon on mobile */
+    .search-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      order: 2; /* Place before hamburger */
+    }
+
+    .search-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Logo positioning *
+    .logo-container {
+      order: 1; /* Place at the beginning *
+    }
+    */
+
+    /* Media Queries */
+    @media (min-width: 992px) {
+      .mobile-nav-toggle, .search-mobile {
+        display: none;
+      }
+
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .desktop-nav a {
+        margin-left: 1.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .desktop-nav a:hover {
+        color: #0062ff;
+      }
+
+      .desktop-nav .newsletter-btn {
+        border: 1px solid #e5e5e5;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+      }
+
+      .desktop-nav .newsletter-btn::after {
+        content: "▼";
+        font-size: 0.7rem;
+        margin-left: 0.5rem;
+      }
+
+      .desktop-nav .search-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 1.5rem;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -417,23 +697,83 @@
           <img src="images/logo.png" alt="Daily Nugget" class="logo">
         </a>
       </div>
-      <nav class="nav-menu">
+      
+      <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
         <a href="./search.html">News</a>
         <a href="./game.html">Games</a>
         <a href="#">Podcast</a>
         <a href="#">Video</a>
         <a href="#">Events</a>
         <a href="#">Shop</a>
-        <a href="#" class="newsletter-btn">Newsletter</a>
-        <a href="#">
-          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </a>
+        <a href="#">Newsletter</a>
       </nav>
+      <!-- Search Icon (visible on mobile) -->
+      <a href="#" class="search-mobile">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </a>
+
+      <!-- Mobile Navigation Toggle Button -->
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <span class="hamburger"></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Navigation Menu - Now slides from right -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-header">
+      <img src="images/logo.png" alt="Daily Nugget" class="mobile-nav-logo">
+    </div>
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-item">
+        <a href="./search.html" class="mobile-nav-link">News</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="./game.html" class="mobile-nav-link">Games</a>
+      </li>
+      <li class="mobile-nav-item mobile-nav-item-has-children">
+        <a href="#" class="mobile-nav-link">Podcast</a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="#" class="mobile-nav-submenu-link">Daily Podcast</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Business Casual</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Founder's Journal</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Video</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Events</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Shop</a>
+      </li>
+      <li class="mobile-nav-item mobile-nav-item-has-children">
+        <a href="#" class="mobile-nav-link">Newsletter</a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="#" class="mobile-nav-submenu-link">Daily Newsletter</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Emerging Tech</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Marketing</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Retail</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">About</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Contact</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay"></div>
+
+
 
   <!-- Games Header -->
   <section class="games-header">

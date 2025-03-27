@@ -113,16 +113,16 @@
       height: 40px;
     }
 
-    .nav-menu {
+    .desktop-nav {
       display: none;
     }
 
-    .nav-menu a {
+    .desktop-nav a {
       margin-left: 1.5rem;
       font-weight: 500;
     }
 
-    .nav-menu a:hover {
+    .desktop-nav a:hover {
       color: #0062ff;
     }
 
@@ -584,7 +584,7 @@
 
     /* Media Queries */
     @media (min-width: 768px) {
-      .nav-menu {
+      .desktop-nav {
         display: flex;
       }
 
@@ -660,6 +660,8 @@
       }
     }
 
+
+
     /* Reset and base styles */
     * {
       margin: 0;
@@ -705,7 +707,7 @@
       height: 40px;
     }
 
-    /* Desktop Navigation - Hidden on mobile */
+    /* Desktop Navigation - Hidden on mobile 
     .desktop-nav {
       display: none;
     }
@@ -889,10 +891,11 @@
       height: 20px;
     }
 
-    /* Logo positioning 
+    /* Logo positioning *
     .logo-container {
-      order: 1; /* Place at the beginning 
+      order: 1; /* Place at the beginning *
     }
+    */
 
     /* Media Queries */
     @media (min-width: 992px) {
@@ -947,7 +950,9 @@
           <img src="images/logo.png" alt="Daily Nugget" class="logo">
         </a>
       </div>
-      <nav class="nav-menu">
+      
+      <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
         <a href="./search.html">News</a>
         <a href="./game.html">Games</a>
         <a href="#">Podcast</a>
@@ -956,14 +961,72 @@
         <a href="#">Shop</a>
         <a href="#">Newsletter</a>
       </nav>
-      <div class="search-container">
+      <!-- Search Icon (visible on mobile) -->
+      <a href="#" class="search-mobile">
         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-      </div>
+      </a>
+
+      <!-- Mobile Navigation Toggle Button -->
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <span class="hamburger"></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Navigation Menu - Now slides from right -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-header">
+      <img src="images/logo.png" alt="Daily Nugget" class="mobile-nav-logo">
+    </div>
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-item">
+        <a href="./search.html" class="mobile-nav-link">News</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="./game.html" class="mobile-nav-link">Games</a>
+      </li>
+      <li class="mobile-nav-item mobile-nav-item-has-children">
+        <a href="#" class="mobile-nav-link">Podcast</a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="#" class="mobile-nav-submenu-link">Daily Podcast</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Business Casual</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Founder's Journal</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Video</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Events</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Shop</a>
+      </li>
+      <li class="mobile-nav-item mobile-nav-item-has-children">
+        <a href="#" class="mobile-nav-link">Newsletter</a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="#" class="mobile-nav-submenu-link">Daily Newsletter</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Emerging Tech</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Marketing</a></li>
+          <li><a href="#" class="mobile-nav-submenu-link">Retail</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">About</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="#" class="mobile-nav-link">Contact</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay"></div>
+
+
 
   <!-- Hero Section -->
   <section class="hero">
@@ -1251,4 +1314,55 @@
     </div>
   </footer>
 </body>
+
+<!-- JavaScript for Mobile Navigation -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+    const mobileNavItemsWithChildren = document.querySelectorAll('.mobile-nav-item-has-children > .mobile-nav-link');
+
+    // Toggle mobile navigation
+    mobileNavToggle.addEventListener('click', function() {
+      this.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      mobileNavOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close mobile navigation when clicking overlay
+    mobileNavOverlay.addEventListener('click', function() {
+      mobileNavToggle.classList.remove('active');
+      mobileNav.classList.remove('active');
+      mobileNavOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // Toggle submenu
+    mobileNavItemsWithChildren.forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const parent = this.parentElement;
+        const submenu = this.nextElementSibling;
+        
+        // Close other open submenus
+        const openItems = document.querySelectorAll('.mobile-nav-item-has-children.active');
+        openItems.forEach(function(openItem) {
+          if (openItem !== parent) {
+            openItem.classList.remove('active');
+            openItem.querySelector('.mobile-nav-submenu').classList.remove('active');
+          }
+        });
+        
+        // Toggle current submenu
+        parent.classList.toggle('active');
+        submenu.classList.toggle('active');
+      });
+    });
+  });
+</script>
+</body>
+
 </html>
