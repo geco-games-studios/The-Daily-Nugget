@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Nugget</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #000;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #333;
+    }
+
+    .btn-secondary {
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e5e5e5;
+    }
+
+    .btn-rounded {
+      border-radius: 9999px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .view-all {
+      color: #0062ff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+
+    .view-all::after {
+      content: "→";
+      margin-left: 0.25rem;
+    }
+
+    /* Header styles */
+    header {
+      background-color: white;
+      border-bottom: 1px solid #e5e5e5;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .nav-menu {
+      display: none;
+    }
+
+    .nav-menu a {
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+
+    .nav-menu a:hover {
+      color: #0062ff;
+    }
+
+    .search-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Hero section */
+    .hero {
+      background-color: #0062ff;
+      color: white;
+      padding: 3rem 0;
+    }
+
+    .hero-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-content {
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .newsletter-form {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .newsletter-form input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .newsletter-form button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Latest news section */
+    .latest-news {
+      padding: 3rem 0;
+      background-color: white;
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .article-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-image {
+      position: relative;
+      aspect-ratio: 16/9;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .article-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .article-category {
+      color: #0062ff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .article-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .article-card:hover .article-title {
+      color: #0062ff;
+    }
+
+    /* Editor's picks section */
+    .editors-picks {
+      padding: 3rem 0;
+      background-color: #f9f9f9;
+    }
+
+    /* Podcast section */
+    .podcast {
+      padding: 3rem 0;
+      background-color: white;
+    }
+
+    .podcast-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .podcast-content {
+      padding: 1.5rem;
+    }
+
+    .podcast-grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .podcast-cover {
+      background-color: #e6f0ff;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .podcast-cover img {
+      width: 150px;
+      height: 150px;
+      border-radius: 8px;
+      margin: 0 auto 1rem;
+    }
+
+    .podcast-name {
+      font-weight: 700;
+      color: #0062ff;
+      font-size: 1rem;
+    }
+
+    .podcast-label {
+      font-size: 0.75rem;
+      color: #0062ff;
+      margin-top: 0.5rem;
+    }
+
+    .podcast-info h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .podcast-description {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .podcast-platforms {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .platform-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f2f2f2;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .platform-link:hover {
+      background-color: #e5e5e5;
+    }
+
+    /* Watch section */
+    .watch {
+      padding: 3rem 0;
+      background-color: #f9f9f9;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .video-card {
+      position: relative;
+      aspect-ratio: 16/9;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .video-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      background-color: #0062ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-button::after {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 16px solid white;
+      margin-left: 4px;
+    }
+
+    .video-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+    }
+
+    .video-title {
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+
+    .video-list {
+      margin-top: 1.5rem;
+    }
+
+    .video-list-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .video-list-title {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      aspect-ratio: 16/9;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-thumbnail .play-button {
+      width: 48px;
+      height: 48px;
+    }
+
+    .video-thumbnail .play-button::after {
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 12px solid white;
+    }
+
+    /* Shorts section */
+    .shorts {
+      padding: 3rem 0;
+      background-color: white;
+    }
+
+    .shorts-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+    }
+
+    .short-card {
+      position: relative;
+      aspect-ratio: 9/16;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .short-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .short-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+    }
+
+    .short-category {
+      font-size: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .short-title {
+      font-weight: 700;
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .short-date {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    /* Newsletter CTA */
+    .newsletter-cta {
+      background-color: #0062ff;
+      color: white;
+      padding: 3rem 0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: white;
+      border-top: 1px solid #e5e5e5;
+      padding: 3rem 0;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo {
+      height: 60px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-nav a:hover {
+      color: #0062ff;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: #666;
+    }
+
+    .footer-links a:hover {
+      color: #0062ff;
+    }
+
+    .partner-logos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .partner-logo {
+      height: 40px;
+      background-color: #f2f2f2;
+      border-radius: 4px;
+    }
+
+    .footer-text {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .footer-legal a {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #0062ff;
+    }
+
+    .footer-legal a:hover {
+      text-decoration: underline;
+    }
+
+    /* Media Queries */
+    @media (min-width: 768px) {
+      .nav-menu {
+        display: flex;
+      }
+
+      .hero-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .hero-content {
+        width: 50%;
+        margin-bottom: 0;
+      }
+
+      .hero-form {
+        width: 40%;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .article-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .article-grid .article-card:first-child {
+        grid-column: span 2;
+      }
+
+      .article-grid .article-card:first-child .article-title {
+        font-size: 1.5rem;
+      }
+
+      .podcast-grid {
+        flex-direction: row;
+        gap: 1.5rem;
+      }
+
+      .podcast-cover {
+        width: 25%;
+        margin-bottom: 0;
+      }
+
+      .podcast-info {
+        width: 75%;
+      }
+
+      .podcast-platforms {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .shorts-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .article-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .article-grid .article-card:first-child {
+        grid-column: span 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Daily Nugget" class="logo">
+        </a>
+      </div>
+      <nav class="nav-menu">
+        <a href="./search.html">News</a>
+        <a href="#">Games</a>
+        <a href="#">Podcast</a>
+        <a href="#">Video</a>
+        <a href="#">Events</a>
+        <a href="#">Shop</a>
+        <a href="#">Newsletter</a>
+      </nav>
+      <div class="search-container">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">Stay Informed in Just 5 Minutes</h1>
+        <p class="hero-text">Daily Nugget Zambia delivers quick and insightful updates on the latest political developments, from State House to Parliament, keeping you ahead of the conversation every day.</p>
+      </div>
+      <div class="hero-form">
+        <div class="newsletter-form">
+          <input type="email" placeholder="Email address" required>
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest News Section -->
+  <section class="latest-news">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">The Latest</h2>
+        <a href="#" class="view-all">ALL STORIES</a>
+      </div>
+      <div class="article-grid">
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://via.placeholder.com/600x400" alt="US-Mexico border agents are seizing a lot of eggs">
+          </div>
+          <div class="article-category">POLITICS</div>
+          <h3 class="article-title">US-Mexico border agents are seizing a lot of eggs</h3>
+        </article>
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://via.placeholder.com/600x400" alt="Improve life easier with these 7 items">
+          </div>
+          <div class="article-category">ENTERTAINMENT</div>
+          <h3 class="article-title">Improve life easier with these 7 items</h3>
+        </article>
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://via.placeholder.com/600x400" alt="23andMe is for sale, and maybe our DNA data, too">
+          </div>
+          <div class="article-category">BUSINESS</div>
+          <h3 class="article-title">23andMe is for sale, and maybe our DNA data, too</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editor's Picks Section -->
+  <section class="editors-picks">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Editor's Picks</h2>
+        <a href="#" class="view-all">ALL STORIES</a>
+      </div>
+      <div class="article-grid">
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://via.placeholder.com/600x400" alt="What to make of all these 'recession indicators'">
+          </div>
+          <div class="article-category">ECONOMY</div>
+          <h3 class="article-title">What to make of all these 'recession indicators'</h3>
+        </article>
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://via.placeholder.com/600x400" alt="Trump moves to dismantle the Education Department">
+          </div>
+          <div class="article-category">POLITICS</div>
+          <h3 class="article-title">Trump moves to dismantle the Education Department</h3>
+        </article>
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://via.placeholder.com/600x400" alt="Crossword: March 24">
+          </div>
+          <div class="article-category">GAMES</div>
+          <h3 class="article-title">Crossword: March 24</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Podcast Section -->
+  <section class="podcast">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">The Daily Nugget Daily Podcast</h2>
+        <a href="#" class="view-all">MORE EPISODES</a>
+      </div>
+      <div class="podcast-card">
+        <div class="podcast-content">
+          <div class="podcast-grid">
+            <div class="podcast-cover">
+              <img src="https://via.placeholder.com/150x150/0062ff/ffffff?text=PODCAST" alt="Podcast cover">
+              <div class="podcast-name">THE NUGGET DAILY</div>
+              <div class="podcast-label">ON THE PODCAST</div>
+            </div>
+            <div class="podcast-info">
+              <h3>The Daily Nugget Show</h3>
+              <p class="podcast-description">
+                covers the latest news on business, the economy, and everything else with Neal Freyman and Toby Howell. Witty, informative and everything you need to start your day.
+              </p>
+              <div class="podcast-platforms">
+                <a href="#" class="platform-link">Spotify</a>
+                <a href="#" class="platform-link">YouTube</a>
+                <a href="#" class="platform-link">Apple Podcasts</a>
+                <a href="#" class="platform-link">Audible</a>
+                <a href="#" class="platform-link">Amazon Music</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Watch Section -->
+  <section class="watch">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Watch</h2>
+        <a href="#" class="view-all">MORE VIDEOS ON YOUTUBE</a>
+      </div>
+      <div class="video-grid">
+        <div class="video-card">
+          <img src="https://via.placeholder.com/600x400" alt="Why bird flu is worse in America">
+          <div class="play-button"></div>
+          <div class="video-overlay">
+            <div class="video-title">Why bird flu is worse in America</div>
+          </div>
+        </div>
+        <div class="video-list">
+          <div class="video-list-item">
+            <h3 class="video-list-title">The battle for search is heating up</h3>
+            <div class="video-thumbnail">
+              <img src="https://via.placeholder.com/600x400" alt="The battle for search is heating up">
+              <div class="play-button"></div>
+            </div>
+          </div>
+          <div class="video-list-item">
+            <h3 class="video-list-title">The Hidden Forces Behind America's Sports Betting Boom</h3>
+            <a href="#" class="btn btn-secondary btn-rounded">Watch Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shorts Section -->
+  <section class="shorts">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Shorts</h2>
+        <a href="#" class="view-all">MORE ON INSTAGRAM</a>
+      </div>
+      <div class="shorts-grid">
+        <div class="short-card">
+          <img src="https://via.placeholder.com/300x500" alt="Short video 1">
+          <div class="play-button"></div>
+          <div class="short-overlay">
+            <div class="short-category">ON THE DAILY GRIND</div>
+            <h3 class="short-title">ChatGPT for Bartenders, an FYI</h3>
+            <div class="short-date">Jan 27th</div>
+          </div>
+        </div>
+        <div class="short-card">
+          <img src="https://via.placeholder.com/300x500" alt="Short video 2">
+          <div class="play-button"></div>
+          <div class="short-overlay">
+            <div class="short-category">TECH TRENDS</div>
+            <h3 class="short-title">The AI Revolution in Retail</h3>
+            <div class="short-date">Jan 25th</div>
+          </div>
+        </div>
+        <div class="short-card">
+          <img src="https://via.placeholder.com/300x500" alt="Short video 3">
+          <div class="play-button"></div>
+          <div class="short-overlay">
+            <div class="short-category">BUSINESS INSIGHTS</div>
+            <h3 class="short-title">5 Tips for Better Meetings</h3>
+            <div class="short-date">Jan 23rd</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="newsletter-cta">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h2 class="hero-title">Stay Informed in Just 5 Minutes</h2>
+        <p class="hero-text">Daily Nugget Zambia delivers quick and insightful updates on the latest political developments, from State House to Parliament, keeping you ahead of the conversation every day.</p>
+      </div>
+      <div class="hero-form">
+        <div class="newsletter-form">
+          <img src="images/logo.png" alt="Daily Nugget" class="logo" style="margin-bottom: 1rem;">
+          <input type="email" placeholder="Email address" required>
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <img src="images/logo.png" alt="Daily Nugget" class="footer-logo">
+        <nav class="footer-nav">
+          <a href="#">News</a>
+          <a href="#">Games</a>
+          <a href="#">Podcast</a>
+          <a href="#">Video</a>
+          <a href="#">Newsletter</a>
+        </nav>
+        <div class="social-links">
+          <a href="#" aria-label="Twitter">
+            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+              <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>© DAILY NUGGET INC.</h3>
+          <ul class="footer-links">
+            <li><a href="#">About Daily Nugget</a></li>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>© DAILY NUGGET</h3>
+          <div class="partner-logos">
+            <div class="partner-logo"></div>
+            <div class="partner-logo"></div>
+            <div class="partner-logo"></div>
+            <div class="partner-logo"></div>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>© 2023 DAILY NUGGET, INC.</h3>
+          <p class="footer-text">
+            All rights reserved. By using this site you agree to our Terms of Service and Privacy Policy.
+          </p>
+          <div class="footer-legal">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Do Not Sell/Share My Personal Information</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
